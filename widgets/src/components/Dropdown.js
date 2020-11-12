@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-function Dropdown({ selected, onSelectedChange ,options }) {
+function Dropdown(props) {
+    const {
+        selected,
+        onSelectedChange,
+        options,
+        label,
+        showResult,
+    } = props;
     const [open, setOpen] = useState(false);
     const ref = useRef();
 
@@ -36,7 +43,7 @@ function Dropdown({ selected, onSelectedChange ,options }) {
     return (
         <div className="ui form" ref={ref}>
             <div className="field">
-                <label htmlFor="color" className="label">Select a Color</label>
+                <label htmlFor="color" className="label">{label}</label>
                 <div
                     className={`ui selection dropdown ${open? 'visible active' : ''}`}
                     onClick={() => setOpen(!open)}
@@ -48,9 +55,11 @@ function Dropdown({ selected, onSelectedChange ,options }) {
                     </div>
                 </div>
             </div>
-            <div>
-                <b style={{ 'color': selected.value }}>This text is {selected.value}!</b>
-            </div>
+            {showResult && (
+                <div>
+                    <b style={{ 'color': selected.value }}>This text is {selected.value}!</b>
+                </div>
+            )}
         </div>
     );
 }
@@ -59,6 +68,13 @@ Dropdown.propTypes = {
     selected: PropTypes.object.isRequired,
     onSelectedChange: PropTypes.func.isRequired,
     options: PropTypes.array.isRequired,
+    label: PropTypes.string,
+    showResult: PropTypes.bool,
+};
+
+Dropdown.defaultProps = {
+    label: 'Select a Color',
+    showResult: false,
 };
 
 export default Dropdown;
