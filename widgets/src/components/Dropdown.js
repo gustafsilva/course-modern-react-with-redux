@@ -48,6 +48,9 @@ function Dropdown({ selected, onSelectedChange ,options }) {
                     </div>
                 </div>
             </div>
+            <div>
+                <b style={{ 'color': selected.value }}>This text is {selected.value}!</b>
+            </div>
         </div>
     );
 }
